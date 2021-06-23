@@ -26,16 +26,16 @@ include('functions.php');
                         $grilles[$row][$col] = -1;
                     }
                 }
-                if (isset($_GET['grilles'])) {
-                    $grilles = $_GET['grilles'];
+                if (isset($_POST['grilles'])) {
+                    $grilles = $_POST['grilles'];
                 }
                 $play = 1;
-                if (isset($_GET['validate']) && isset($_GET['btn'])) {
-                    if (isset($_GET['grilles'])) {
-                        $grilles = $_GET['grilles'];
-                        $play = $_GET['validate'];
-                        $row = substr($_GET['btn'], 0, -1);
-                        $col = substr($_GET['btn'], -1);
+                if (isset($_POST['validate']) && isset($_POST['btn'])) {
+                    if (isset($_POST['grilles'])) {
+                        $grilles = $_POST['grilles'];
+                        $play = $_POST['validate'];
+                        $row = substr($_POST['btn'], 0, -1);
+                        $col = substr($_POST['btn'], -1);
                         if ($grilles[$row][$col] == 1 || $grilles[$row][$col] == 2) {
                             $double = "Cette case est déja jouée";
                         } elseif ($play == 1) { //on remplit la case jouée  de la valeur 1 -> X(affichage)
@@ -71,7 +71,7 @@ include('functions.php');
                         }
                     }
                 }
-                if (isset($_GET['new-game'])) {
+                if (isset($_POST['new-game'])) {
                     for ($row = 0; $row <= 4; $row++) {
                         for ($col = 0; $col <= 4; $col++) {
                             unset($grilles[$row][$col]);
@@ -80,7 +80,7 @@ include('functions.php');
                     }
                 }
                 ?>
-                <form action="index.php" method="GET">
+                <form action="index.php" method="POST">
                     <div class="flex">
                         <div>
                             <table>
