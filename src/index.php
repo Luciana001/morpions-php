@@ -1,3 +1,6 @@
+<?php
+include('functions.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,6 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="style.css">
     <title>Morpions</title>
 </head>
 
@@ -14,11 +18,13 @@
             <h1>Morpions</h1>
             <section>
                 <?php
-
-                $double=" ";
+                $end = -1;
+                $double = "A vous de jouer !!";
                 $grilles = [];
-                for ($i = 0; $i <= 24; $i++) {
-                    $grilles[] = $i;
+                for ($row = 0; $row <= 4; $row++) { //on remplit le tableau de la valeur -1 -> vide
+                    for ($col = 0; $col <= 4; $col++) {
+                        $grilles[$row][$col] = -1;
+                    }
                 }
                 if (isset($_GET['grilles'])) {
                     $grilles = $_GET['grilles'];
@@ -28,85 +34,88 @@
                     if (isset($_GET['grilles'])) {
                         $grilles = $_GET['grilles'];
                         $play = $_GET['validate'];
-                        $id = $_GET['btn'];
-                        if ($grilles[$id] == "X" || $grilles[$id] == "O") {
+                        $row = substr($_GET['btn'], 0, -1);
+                        $col = substr($_GET['btn'], -1);
+                        if ($grilles[$row][$col] == 1 || $grilles[$row][$col] == 2) {
                             $double = "Cette case est déja jouée";
-                        } elseif ($play == 1) {
-                            $grilles[$id] = "X";
+                        } elseif ($play == 1) { //on remplit la case jouée  de la valeur 1 -> X(affichage)
+                            $grilles[$row][$col] = 1;
                             $play = 2;
                         } elseif ($play == 2) {
-                            $grilles[$id] = "O";
+                            $grilles[$row][$col] = 2; //on remplit la case jouée de la valeur 2 -> O(affichage)
                             $play = 1;
                         }
-                        if ($id >= 2){
-                            if($grilles[$id] == $grilles[$id-1] && $grilles[$id] == $grilles[$id-2] || $grilles[$id] == $grilles[$id-5] && $grilles[$id] == $grilles[$id-10]  ){
-                                $winner= "Félicitations Joueur ".$play." vous avez gagné !!";
-                                echo '<h2>';
-                                echo $winner;
-                                echo '</h2>';
+                        $cpt = 0;
+                        $i =  0;
+                        $j = 0;
+                        while (($i <= 4) && ($end == -1)) { //on verifie si il n'y a aucun gagnant
+                            $j = 0;
+                            while (($j <= 4) && ($end == -1)) {
+                                if ($grilles[$i][$j] == -1) {
+                                    $cpt++;
+                                } else {
+                                    $end = testGame($i, $j, $grilles);
+                                }
+                                $j++;
                             }
+                            $i++;
                         }
-                        if($id <= 22 ){
-                            if($grilles[$id] == $grilles[$id+1] && $grilles[$id] == $grilles[$id+2]){
-                                $winner= "Félicitations Joueur ".$play." vous avez gagné !!";
-                                echo '<h2>';
-                                echo $winner;
-                                echo '</h2>';
-                            }
+                        if ($end != -1) {
+                            $play = $end;
+                            $double = "Vous avez gagnez, Bravo!!";
                         }
-                }
-            }
-            
-                
-                if(isset($_GET['new-game'])){
-                    for ($i = 0; $i <= 24; $i++) {
-                        unset ($grilles[$i]);
-                        $grilles[$i] = $i;
+                        if (($cpt === 0) && ($end === -1)) {
+                            $end = 0;
+                            $play = "s";
+                            $double = "Match nul !! <br> Voulez-vous rejouer?";
+                        }
                     }
                 }
-                
-            
-           //var_dump($grilles);
-
+                if (isset($_GET['new-game'])) {
+                    for ($row = 0; $row <= 4; $row++) {
+                        for ($col = 0; $col <= 4; $col++) {
+                            unset($grilles[$row][$col]);
+                            $grilles[$row][$col] = -1;
+                        }
+                    }
+                }
                 ?>
                 <form action="index.php" method="GET">
-                    <button type="submit" name="new-game">New Game</button>
-                    <h3><?php echo "Joueur ".$play." ".$double; ?></h3>
-                    <table>
-                        <tr>
-                            <?php for ($i = 0; $i <= 4; $i++) : ?>
-                                <input type="hidden" name="grilles[]" value="<?= $grilles[$i] ?>">
-                                <td><input type="radio" name="btn" value="<?php echo $i ?>"> <?php echo $grilles[$i]; ?></td>
-                            <?php endfor ?>
-                        </tr>
-                        <tr>
-                            <?php for ($i = 5; $i <= 9; $i++) : ?>
-                                <input type="hidden" name="grilles[]" value="<?= $grilles[$i] ?>">
-                                <td><input type="radio" name="btn" value="<?php echo $i ?>"> <?php echo $grilles[$i]; ?></td>
-                            <?php endfor ?>
-                        </tr>
-                        <tr>
-                            <?php for ($i = 10; $i <= 14; $i++) : ?>
-                                <input type="hidden" name="grilles[]" value="<?= $grilles[$i] ?>">
-                                <td><input type="radio" name="btn" value="<?php echo $i ?>"> <?php echo $grilles[$i]; ?></td>
-                            <?php endfor ?>
-                        </tr>
-                        <tr>
-                            <?php for ($i = 15; $i <= 19; $i++) : ?>
-                                <input type="hidden" name="grilles[]" value="<?= $grilles[$i] ?>">
-                                <td><input type="radio" name="btn" value="<?php echo $i ?>"> <?php echo $grilles[$i]; ?></td>
-                            <?php endfor ?>
-                        </tr>
-                        <tr>
-                            <?php for ($i = 20; $i <= 24; $i++) : ?>
-                                <input type="hidden" name="grilles[]" value="<?= $grilles[$i] ?>">
-                                <td><input type="radio" name="btn" value="<?php echo $i ?>"> <?php echo $grilles[$i]; ?></td>
-                            <?php endfor ?>
-                        </tr>
-                    </table>
-                    <button type="submit" name="validate" value="<?php echo $play ?>">Valider</button>
+                    <div class="flex">
+                        <div>
+                            <table>
+                                <?php for ($row = 0; $row <= 4; $row++) : ?>
+                                    <tr>
+                                        <?php for ($col = 0; $col <= 4; $col++) : ?>
+                                            <input type="hidden" name="grilles[<?php echo $row; ?>][]" value="<?= $grilles[$row][$col]; ?>">
+                                            <td><input type="radio" name="btn" value="<?php echo $row . $col; ?>">
+                                                <?php if ($grilles[$row][$col] == -1) {
+                                                    echo "";
+                                                } elseif ($grilles[$row][$col] == 1) {
+                                                    echo "X";
+                                                } elseif ($grilles[$row][$col] == 2) {
+                                                    echo "O";
+                                                };
+                                                ?></td>
+                                        <?php endfor ?>
+                                    </tr>
+                                <?php endfor ?>
+                            </table>
+                        </div>
+                        <div class="col-droite">
+                        <div>
+                                <button type="submit" id="new-game" name="new-game">New Game</button>
+                            </div>
+                            <h3><?php echo "Joueur" . $play . " <br> " . $double; ?></h3>
+                            <div >
+                                <?php if (($end == -1)) : ?>
+                                    <button type="submit" id="validate" name="validate" value="<?php echo $play ?>">Valider</button>
+                                <?php endif ?>
+                                
+                            </div>
+                        </div>
+                    </div>
                 </form>
-
             </section>
         </article>
     </main>

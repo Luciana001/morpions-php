@@ -1,0 +1,59 @@
+    article {
+        position: absolute;
+        background-color:#00BCD4;
+        width: auto;
+        /* padding-top: 10px; */
+        /* padding-bottom: 10px; */
+        border: 2px solid black;
+        padding: 10px;
+}
+section {
+    display: flex;
+    position: relative;
+    
+}
+table tr td{
+    table-layout: fixed;
+    width: 50px;
+    border:0.5px solid white ;
+    background-color:#FFCA28;
+    color: black;
+    font-size: larger;
+    float:left ;
+    text-align: center;
+    padding: 10px;
+
+    margin-top: -2px;;
+}
+h1  {
+    text-align: center;  
+}
+button {
+    border-radius: 20%;
+    
+    color: white;
+    padding: 10px;
+}
+#validate {
+    background-color: green;
+    border: green;
+    margin-bottom: 30px;
+    margin-top: 55px;
+}
+#new-game {
+    background-color: whitesmoke ;
+    border: whitesmoke;
+    color:black;
+}
+.flex {
+    display: flex;
+    width: auto;
+}
+.col-droite {
+    width: auto;
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* margin: auto; */
+    text-align: center;
+    padding: 10px;
+}
