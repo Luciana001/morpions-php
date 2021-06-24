@@ -1,9 +1,9 @@
-    article {
-        position: absolute;
-        background-color:#00BCD4;
-        width: auto;
-        border: 2px solid black;
-        padding: 10px;
+article {
+    position: absolute;
+    background-color:#00BCD4;
+    width: auto;
+    border: 2px solid black;
+    padding: 10px;
 }
 section {
     display: flex;

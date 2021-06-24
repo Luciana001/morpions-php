@@ -8,14 +8,14 @@ include('functions.php');
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" rel="stylesheet" href="/styles/app.css">
-    <title>Morpions</title>
+    <link type="text/css" rel="stylesheet" href="/styles/style.css">
+    <title>Morpion</title>
 </head>
 
 <body>
     <main>
         <article>
-            <h1>Morpions</h1>
+            <h1>MORPION</h1>
             <section>
                 <?php
                 $end = -1;
