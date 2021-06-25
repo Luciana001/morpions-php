@@ -8,7 +8,7 @@ include('functions.php');
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" rel="stylesheet" href="style.css">
+    <!-- <link type="text/css" rel="stylesheet" href="style.css"> -->
     <title>Morpion</title>
 </head>
 
@@ -122,3 +122,55 @@ include('functions.php');
 </body>
 
 </html>
+<style>article {
+    position: absolute;
+    background-color:#00BCD4;
+    width: auto;
+    border: 2px solid black;
+    padding: 10px;
+}
+section {
+    display: flex;
+    position: relative;
+}
+table tr td{
+    table-layout: fixed;
+    width: 50px;
+    border:0.5px solid white ;
+    background-color:#FFCA28;
+    color: black;
+    font-size: larger;
+    float:left ;
+    text-align: center;
+    padding: 10px;
+    margin-top: -2px;;
+}
+h1  {
+    text-align: center;  
+}
+button {
+    border-radius: 20%;
+    color: white;
+    padding: 10px;
+}
+#validate {
+    background-color: green;
+    border: green;
+    margin-bottom: 30px;
+    margin-top: 50px;
+}
+#new-game {
+    background-color: whitesmoke ;
+    border: whitesmoke;
+    color:black;
+}
+.flex {
+    display: flex;
+    width: auto;
+}
+.col-droite {
+    width: auto;
+    text-align: center;
+    padding: 10px;
+}
+</style>
